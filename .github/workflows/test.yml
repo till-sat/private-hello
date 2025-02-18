@@ -1,4 +1,4 @@
-name: Public Hello World
+name: Private Hello World
 
 on:
     push:
@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    run-public-docker:
+    run-private-docker:
         runs-on: ubuntu-latest
 
         steps:
@@ -16,13 +16,13 @@ jobs:
         #   run: |
         #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-        - name: Pull Public Docker Image
+        - name: Pull Private Docker Image
           id: pull_container_image
           run: |
-            docker pull tillsat/public-hello:latest
+            docker pull tillsat/private-hello:latest
         
         - name: Build Files
           if: steps.pull_container_image.outcome == 'success'
           run: |
-            docker run --rm -v ${{ github.workspace }}:/build tillsat/public-hello:latest \
+            docker run --rm -v ${{ github.workspace }}:/build tillsat/private-hello:latest \
             /bin/sh -c "make"
