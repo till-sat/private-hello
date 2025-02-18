@@ -1,0 +1,28 @@
+name: Public Hello World
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    run-public-docker:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v4
+        
+        # - name: Log in to Docker Hub
+        #   run: |
+        #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+        - name: Pull Public Docker Image
+          id: pull_container_image
+          run: |
+            docker pull tillsat/public-hello:latest
+        
+        - name: Build Files
+          if: steps.pull_container_image.outcome == 'success'
+          run: |
+            docker run --rm -v ${{ github.workspace }}:/build tillsat/public-hello:latest \
+            /bin/sh -c "make"
