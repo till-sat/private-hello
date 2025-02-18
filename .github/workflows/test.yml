@@ -12,9 +12,9 @@ jobs:
         steps:
         - uses: actions/checkout@v4
         
-        - name: Log in to Docker Hub
-          run: |
-            echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        # - name: Log in to Docker Hub
+        #   run: |
+        #     echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
         - name: Pull Private Docker Image
           id: pull_container_image
