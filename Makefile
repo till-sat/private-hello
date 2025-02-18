@@ -1,2 +1,2 @@
 all:
-	@echo "Public Hello World" 
+	@echo "Private Hello World" 
